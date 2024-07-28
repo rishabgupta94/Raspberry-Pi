@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Test from "./Test";
 
-const url = "http://localhost:3001/";
+const url = "/node/";
 
 export const App = () => {
   const [message, setMessage] = useState("error");

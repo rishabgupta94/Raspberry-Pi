@@ -1,12 +1,21 @@
 version: "3"
 services:
-  api:
+  node:
     build: ./server
     ports:
       - "3001:3001"
-  web:
+  react:
     build: ./client
     ports:
       - "3000:3000"
     depends_on:
-      - api
+      - node
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - node
+      - react
