@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import Test from "./Test";
 
-const url = "/node/";
+const url = "/node";
 
 export const App = () => {
   const [message, setMessage] = useState("error");
