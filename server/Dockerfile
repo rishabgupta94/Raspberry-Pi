@@ -14,8 +14,5 @@ RUN npm install
 # Copy the rest of the application code to the container
 COPY . .
 
-# Expose port 3001 to the outside world
-EXPOSE 5173
-
 # Command to run the application
 CMD ["node", "app.js"]

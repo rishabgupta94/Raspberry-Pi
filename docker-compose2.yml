@@ -1,16 +1,13 @@
 version: "3"
 services:
   node:
-    build: ./server
-    platform: linux/amd64
+    image: "837437137527.dkr.ecr.us-east-1.amazonaws.com/raspberry-pi:node-latest"
   react:
-    build: ./client
-    platform: linux/amd64
+    image: "837437137527.dkr.ecr.us-east-1.amazonaws.com/raspberry-pi:react-latest"
     depends_on:
       - node
   nginx:
     image: nginx:alpine
-    platform: linux/amd64
     ports:
       - "80:80"
     volumes:
