@@ -15,7 +15,7 @@ export const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <p>This is a test message, after updates</p>
+        <h3>This is a test message, after updates</h3>
         <p>{message}</p>
       </header>
     </div>
