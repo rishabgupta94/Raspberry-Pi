@@ -9,6 +9,9 @@ env:
   AWS_REGION: us-east-1
   ECR_REGISTRY: 837437137527.dkr.ecr.us-east-1.amazonaws.com
   ECR_REPOSITORY: raspberry-pi
+  EC2_USER: ec2-user
+  EC2_HOST: 3.239.42.158
+  EC2_DOCKER_COMPOSE_FILE: /downloads
 
 jobs:
   deploy:
@@ -38,3 +41,15 @@ jobs:
         run: |
           docker build -t ${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:node-latest ./server
           docker push ${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:node-latest
+
+      - name: Deploy to Amazon EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ env.EC2_HOST }}
+          username: ${{ env.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{env.ECR_REGISTRY}}
+            cd ${{ env.EC2_DOCKER_COMPOSE_FILE }}
+            docker-compose pull
+            docker-compose up -d
