@@ -11,7 +11,7 @@ env:
   ECR_REPOSITORY: raspberry-pi
   EC2_USER: ec2-user
   EC2_HOST: 3.239.42.158
-  EC2_DOCKER_COMPOSE_FILE: /downloads
+  EC2_DOCKER_COMPOSE_FILE: downloads
 
 jobs:
   deploy:
