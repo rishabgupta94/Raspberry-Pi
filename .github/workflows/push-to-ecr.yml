@@ -45,7 +45,7 @@ jobs:
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" > /tmp/id_rsa
           chmod 600 /tmp/id_rsa
-          scp -i /tmp/id_rsa ${{ github.workspace }}/docker-compose.yml ${{ github.workspace }}/nginx.conf ${{ env.EC2_USER }}@${{ env.EC2_HOST }}:~/
+          scp -o StrictHostKeyChecking=no -i /tmp/id_rsa ${{ github.workspace }}/docker-compose.yml ${{ github.workspace }}/nginx.conf ${{ env.EC2_USER }}@${{ env.EC2_HOST }}:~/
 
       - name: Deploy to Amazon EC2
         uses: appleboy/ssh-action@v1.0.3
