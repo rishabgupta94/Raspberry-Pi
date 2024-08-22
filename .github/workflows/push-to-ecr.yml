@@ -43,7 +43,9 @@ jobs:
 
       - name: Upload docker-compose and nginx files to EC2
         run: |
-          scp -i ${{ secrets.EC2_SSH_KEY }}  ${{ github.workspace }}/docker-compose.yml ${{ github.workspace }}/nginx.conf ${{ env.EC2_USER }}@${{ env.EC2_HOST }}:~/
+          echo "${{ secrets.EC2_SSH_KEY }}" > /tmp/id_rsa
+          chmod 600 /tmp/id_rsa
+          scp -i /tmp/id_rsa ${{ github.workspace }}/docker-compose.yml ${{ github.workspace }}/nginx.conf ${{ env.EC2_USER }}@${{ env.EC2_HOST }}:~/
 
       - name: Deploy to Amazon EC2
         uses: appleboy/ssh-action@v1.0.3
@@ -55,3 +57,7 @@ jobs:
             aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{env.ECR_REGISTRY}}
             docker-compose pull
             docker-compose up -d
+
+      - name: Clean up
+        run: |
+          rm /tmp/id_rsa
