@@ -2,12 +2,15 @@ version: "3"
 services:
   node:
     image: "837437137527.dkr.ecr.us-east-1.amazonaws.com/raspberry-pi:node-latest"
+    container_name: node
   react:
     image: "837437137527.dkr.ecr.us-east-1.amazonaws.com/raspberry-pi:react-latest"
+    container_name: react
     depends_on:
       - node
   nginx:
     image: nginx:alpine
+    container_name: nginx
     ports:
       - "80:80"
     volumes:
